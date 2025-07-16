@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import utils.ConfigReader;
 
 public class HomePage {
 
@@ -20,7 +21,8 @@ public class HomePage {
         driver.findElement(loginLink).click();
     }
 
-    public void loadHomePage(String url) {
+    public void loadHomePage() {
+        String url = ConfigReader.get("base.url");
         driver.get(url);
     }
 }

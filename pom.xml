@@ -9,7 +9,6 @@
     <artifactId>selenium-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!-- Java version -->
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -17,32 +16,44 @@
     </properties>
 
     <dependencies>
-        <!-- Selenium Java -->
+        <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
             <version>4.21.0</version>
         </dependency>
 
-        <!-- WebDriverManager to auto-download drivers -->
+        <!-- WebDriverManager -->
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
             <artifactId>webdrivermanager</artifactId>
             <version>5.5.3</version>
         </dependency>
 
-        <!-- TestNG for test framework -->
+        <!-- Logging -->
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>7.10.1</version>
-            <scope>test</scope>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.4.14</version>
         </dependency>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.13</version>
+        </dependency>
+
+        <!-- TestNG -->
+        <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.10.1</version>
-            <scope>compile</scope>
+        </dependency>
+
+        <!-- Allure for TestNG -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.24.0</version>
         </dependency>
     </dependencies>
 
@@ -59,12 +70,19 @@
                 </configuration>
             </plugin>
 
-            <!-- Surefire Plugin to run TestNG tests -->
+
+            <!-- Surefire Plugin for running com and attaching Allure listener -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
+                    <properties>
+                        <property>
+                            <name>listener</name>
+                            <value>io.qameta.allure.testng.AllureTestNg</value>
+                        </property>
+                    </properties>
                     <includes>
                         <include>**/*Test.java</include>
                     </includes>
